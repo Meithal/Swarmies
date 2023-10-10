@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,17 @@ public class MoveCamera : MonoBehaviour
     public float ScrollSpeed = 1f;
     private Camera _cam;
     private Vector2 _touch;
-    //private Gamepad
+    private Gamepad _gamepad;
+
+    private void OnEnable()
+    {
+        _gamepad = Gamepad.current;
+    }
+
+    private void OnDisable()
+    {
+        _gamepad = null;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -23,22 +34,31 @@ public class MoveCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var js = Input.GetJoystickNames();
-        //Debug.Log(js.Length);
-
-        if (js.Length > 0)
-        {
-            //Debug.Log(js.GetValue(0));
-        }
-
-        Rect rect = _cam.pixelRect;
-
+        _gamepad = Gamepad.current;
+        
         var x = 0f;
         var y = 0f;
         Vector3 pos = _cam.transform.position;
 
+        #region Gamepad
+
+        if (_gamepad != null)
+        {
+            var sx = _gamepad.leftStick.x.value;
+            var sy = _gamepad.leftStick.y.value;
+            if (sx != 0 || sy != 0)
+            {
+                x = sx;
+                y = sy;
+            }
+        }
+
+        #endregion
+
+        
         #region mouse
         Vector2Control mp = Mouse.current.position;
+        Rect rect = _cam.pixelRect;
 
         if (mp.x.value >= 0 && mp.x.value < 5)
         {
@@ -106,7 +126,7 @@ public class MoveCamera : MonoBehaviour
         }
 
         #endregion
-        
+
         if (x != 0 || y != 0)
         {
             pos.x += x;
