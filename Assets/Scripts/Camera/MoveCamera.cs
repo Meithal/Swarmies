@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using TouchPhase = UnityEngine.TouchPhase;
 
 public class MoveCamera : MonoBehaviour
@@ -37,29 +38,28 @@ public class MoveCamera : MonoBehaviour
         Vector3 pos = _cam.transform.position;
 
         #region mouse
-        var mp = Input.mousePosition;
+        Vector2Control mp = Mouse.current.position;
 
-        if (mp.x >= 0 && mp.x < 5)
+        if (mp.x.value >= 0 && mp.x.value < 5)
         {
             x = -ScrollSpeed;
         }
-        else if(mp.x <= rect.width && mp.x > rect.width - 5)
+        else if(mp.x.value <= rect.width && mp.x.value > rect.width - 5)
         {
             x = ScrollSpeed;
         }
 
-        if (mp.y >= 0 && mp.y < 5)
+        if (mp.y.value >= 0 && mp.y.value < 5)
         {
             y = -ScrollSpeed;
         }
-        else if (mp.y <= rect.height && mp.y > rect.height - 15)
+        else if (mp.y.value <= rect.height && mp.y.value > rect.height - 15)
         {
             y = ScrollSpeed;
         }
         #endregion
         
         #region keyboard
-        Debug.Log(Keyboard.current.leftArrowKey.isPressed);
         if (Keyboard.current.leftArrowKey.isPressed)
         {
             x = -ScrollSpeed;
