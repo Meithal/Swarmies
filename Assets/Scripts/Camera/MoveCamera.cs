@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using TouchPhase = UnityEngine.TouchPhase;
 
 public class MoveCamera : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class MoveCamera : MonoBehaviour
     public float ScrollSpeed = 1f;
     private Camera _cam;
     private Vector2 _touch;
+    //private Gamepad
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +22,13 @@ public class MoveCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var js = Input.GetJoystickNames();
+        //Debug.Log(js.Length);
+
+        if (js.Length > 0)
+        {
+            //Debug.Log(js.GetValue(0));
+        }
 
         Rect rect = _cam.pixelRect;
 
@@ -49,20 +59,21 @@ public class MoveCamera : MonoBehaviour
         #endregion
         
         #region keyboard
-        if (Input.GetKey(KeyCode.LeftArrow))
+        Debug.Log(Keyboard.current.leftArrowKey.isPressed);
+        if (Keyboard.current.leftArrowKey.isPressed)
         {
             x = -ScrollSpeed;
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Keyboard.current.rightArrowKey.isPressed)
         {
             x = ScrollSpeed;
         }
 
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Keyboard.current.upArrowKey.isPressed)
         {
             y = ScrollSpeed;
         }
-        else if (Input.GetKey(KeyCode.DownArrow))
+        else if (Keyboard.current.downArrowKey.isPressed)
         {
             y = -ScrollSpeed;
         }
@@ -88,8 +99,12 @@ public class MoveCamera : MonoBehaviour
         #region LaptopTrackPad
 
         var dtp = Input.mouseScrollDelta;
-        x = -dtp.x;
-        y = dtp.y;
+        if (dtp.x != 0 || dtp.y != 0)
+        {
+            x = -dtp.x;
+            y = dtp.y;
+        }
+
         #endregion
         
         if (x != 0 || y != 0)
