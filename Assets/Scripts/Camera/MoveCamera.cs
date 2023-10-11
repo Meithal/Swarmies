@@ -1,22 +1,25 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.Serialization;
 using TouchPhase = UnityEngine.TouchPhase;
 
 public class MoveCamera : MonoBehaviour
 {
 
-    public float ScrollSpeed = 1f;
+    public float scrollSpeed = 1f;
+    public MeshFilter clampTo;
     private Camera _cam;
     private Vector2 _touch;
     private Gamepad _gamepad;
+    private Vector3 _topLeftPos;
+    private Vector3 _bottomRightPos;
 
     private void OnEnable()
     {
         _gamepad = Gamepad.current;
+
     }
 
     private void OnDisable()
@@ -28,9 +31,43 @@ public class MoveCamera : MonoBehaviour
     void Start()
     {
         _cam = GetComponent<Camera>();
-        Debug.Log(_cam.pixelRect);
+        // Debug.Log(_cam.pixelRect);
+        // Debug.Log(clampTo.transform.position);//.GetComponent<MeshFilter>().GetComponent<Mesh>());
+        // Debug.Log(clampTo.mesh.bounds.size);//.GetComponent<MeshFilter>().GetComponent<Mesh>());
+        // Debug.Log(clampTo.mesh.bounds.min);//.GetComponent<MeshFilter>().GetComponent<Mesh>());
+        // Debug.Log(clampTo.mesh.bounds.center);//.GetComponent<MeshFilter>().GetComponent<Mesh>());
+        ComputeCameraBounds();
+        Debug.Log(_topLeftPos);
+        Debug.Log(_bottomRightPos);
     }
 
+    void ComputeCameraBounds()
+    {
+        Mesh mesh = clampTo.mesh;
+        Transform transform = clampTo.transform;
+        Vector3 position = transform.position;
+        Vector3 scale = transform.lossyScale;
+        var meshWidth = mesh.bounds.size.x;
+        var meshHeight = mesh.bounds.size.z;
+        _topLeftPos = new Vector3(
+            x: (meshWidth / 2f) * scale.x * -1, 
+            y: 0,
+            z: (meshHeight / 2f) * scale.z
+            );
+        _bottomRightPos = new Vector3(
+            x: (meshWidth / 2f) * scale.x,
+            y: 0,
+            z: (meshHeight / 2f) * scale.z * -1
+            );
+        //Debug.Log(transform.TransformPoint(_topLeftPos));
+        //Debug.Log(transform.TransformPoint(_bottomRightPos));
+        //_bottomRightPos.
+    }
+    bool CameraIsInBounds()
+    {
+        return true;
+    }
+    
     // Update is called once per frame
     void Update()
     {
@@ -39,6 +76,10 @@ public class MoveCamera : MonoBehaviour
         var x = 0f;
         var y = 0f;
         Vector3 pos = _cam.transform.position;
+        // Debug.Log($"Cam: {pos} plane: {clampTo.mesh.bounds.max} Ray: {hit}"); 
+        // Debug.Log(_cam.transform.position);
+        Debug.DrawLine(_topLeftPos, _bottomRightPos, Color.red);
+        //Debug.DrawLine(Vector3.left, Vector3.right, Color.blue);
 
         #region Gamepad
 
@@ -54,48 +95,47 @@ public class MoveCamera : MonoBehaviour
         }
 
         #endregion
-
         
         #region mouse
         Vector2Control mp = Mouse.current.position;
         Rect rect = _cam.pixelRect;
 
-        if (mp.x.value >= 0 && mp.x.value < 5)
+        if (mp.x.value is >= 0 and < 5)
         {
-            x = -ScrollSpeed;
+            x = -scrollSpeed;
         }
-        else if(mp.x.value <= rect.width && mp.x.value > rect.width - 5)
+        else if(mp.x.value  <= rect.width && mp.x.value > rect.width - 5)
         {
-            x = ScrollSpeed;
+            x = scrollSpeed;
         }
 
-        if (mp.y.value >= 0 && mp.y.value < 5)
+        if (mp.y.value is >= 0 and < 5)
         {
-            y = -ScrollSpeed;
+            y = -scrollSpeed;
         }
         else if (mp.y.value <= rect.height && mp.y.value > rect.height - 15)
         {
-            y = ScrollSpeed;
+            y = scrollSpeed;
         }
         #endregion
         
         #region keyboard
         if (Keyboard.current.leftArrowKey.isPressed)
         {
-            x = -ScrollSpeed;
+            x = -scrollSpeed;
         }
         else if (Keyboard.current.rightArrowKey.isPressed)
         {
-            x = ScrollSpeed;
+            x = scrollSpeed;
         }
 
         if (Keyboard.current.upArrowKey.isPressed)
         {
-            y = ScrollSpeed;
+            y = scrollSpeed;
         }
         else if (Keyboard.current.downArrowKey.isPressed)
         {
-            y = -ScrollSpeed;
+            y = -scrollSpeed;
         }
         #endregion
 
@@ -127,11 +167,26 @@ public class MoveCamera : MonoBehaviour
 
         #endregion
 
-        if (x != 0 || y != 0)
-        {
-            pos.x += x;
-            pos.z += y;
-            _cam.transform.position = pos;
-        }
+        if (x == 0 && y == 0) return;
+        
+        pos.x += x;
+        pos.z += y;
+        pos.x = Mathf.Clamp(pos.x, _topLeftPos.x, _bottomRightPos.x);
+        pos.z = Mathf.Clamp(pos.z, _bottomRightPos.z, _topLeftPos.z);
+        
+        _cam.transform.position = pos;
+        Debug.Log(pos);
+    }
+
+    private void LateUpdate()
+    {
+        Vector3 cameraPosition = transform.position;
+
+        // Clamp the camera's height above the mesh
+        //cameraPosition.x = Mathf.Clamp(
+        //    cameraPosition.x, clampTo.transform.position.y + minHeight, targetMesh.position.y + maxHeight);
+
+        // Set the camera's new position
+        transform.position = cameraPosition;
     }
 }
