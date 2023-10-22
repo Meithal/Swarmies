@@ -1,0 +1,9 @@
+Library
+Temp
+UserSettings
+Logs
+obj
+.vs
+.idea/
+.DS_Store
+iOSBuild
