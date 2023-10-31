@@ -37,8 +37,8 @@ public class MoveCamera : MonoBehaviour
         // Debug.Log(clampTo.mesh.bounds.min);//.GetComponent<MeshFilter>().GetComponent<Mesh>());
         // Debug.Log(clampTo.mesh.bounds.center);//.GetComponent<MeshFilter>().GetComponent<Mesh>());
         ComputeCameraBounds();
-        Debug.Log(_topLeftPos);
-        Debug.Log(_bottomRightPos);
+        //Debug.Log(_topLeftPos);
+        //Debug.Log(_bottomRightPos);
     }
 
     void ComputeCameraBounds()
@@ -175,7 +175,7 @@ public class MoveCamera : MonoBehaviour
         pos.z = Mathf.Clamp(pos.z, _bottomRightPos.z, _topLeftPos.z);
         
         _cam.transform.position = pos;
-        Debug.Log(pos);
+        //Debug.Log(pos);
     }
 
     private void LateUpdate()
