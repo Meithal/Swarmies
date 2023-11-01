@@ -7,3 +7,4 @@ obj
 .idea/
 .DS_Store
 iOSBuild
+mono_crash.*
