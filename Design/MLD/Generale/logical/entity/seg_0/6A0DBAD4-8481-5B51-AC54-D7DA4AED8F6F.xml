@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="6A0DBAD4-8481-5B51-AC54-D7DA4AED8F6F" name="Mesh">
+<createdBy>ivo</createdBy>
+<createdTime>2023-11-01 02:09:35 UTC</createdTime>
+<ownerDesignName>Generale</ownerDesignName>
+<engineerTo>
+<item key="E4BAB5E9-9D7D-DF11-A085-BDFB04DEC214" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+</Entity>

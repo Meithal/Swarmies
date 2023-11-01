@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="E0CBA5CA-57B5-D2B0-16D4-41EEF768B13E" name="Acceleration">
+<createdBy>ivo</createdBy>
+<createdTime>2023-11-01 02:00:00 UTC</createdTime>
+<ownerDesignName>Generale</ownerDesignName>
+<engineerTo>
+<item key="E4BAB5E9-9D7D-DF11-A085-BDFB04DEC214" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="x" id="ED27B394-0AC7-4805-F730-B3D55BFBA5C4">
+<createdBy>ivo</createdBy>
+<createdTime>2023-11-01 02:00:08 UTC</createdTime>
+<ownerDesignName>Generale</ownerDesignName>
+<engineerTo>
+<item key="E4BAB5E9-9D7D-DF11-A085-BDFB04DEC214" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="y" id="B825DA68-258C-D6C6-E140-7EBFBB317F00">
+<createdBy>ivo</createdBy>
+<createdTime>2023-11-01 02:00:23 UTC</createdTime>
+<ownerDesignName>Generale</ownerDesignName>
+<engineerTo>
+<item key="E4BAB5E9-9D7D-DF11-A085-BDFB04DEC214" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="z" id="473A00A8-FEE9-7B2E-93DF-20098D3A55C5">
+<createdBy>ivo</createdBy>
+<createdTime>2023-11-01 02:00:25 UTC</createdTime>
+<ownerDesignName>Generale</ownerDesignName>
+<engineerTo>
+<item key="E4BAB5E9-9D7D-DF11-A085-BDFB04DEC214" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="w" id="6D2C33EB-0E5F-CD9F-FC03-94057A4B085D">
+<createdBy>ivo</createdBy>
+<createdTime>2023-11-01 02:00:26 UTC</createdTime>
+<ownerDesignName>Generale</ownerDesignName>
+<engineerTo>
+<item key="E4BAB5E9-9D7D-DF11-A085-BDFB04DEC214" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+</Entity>

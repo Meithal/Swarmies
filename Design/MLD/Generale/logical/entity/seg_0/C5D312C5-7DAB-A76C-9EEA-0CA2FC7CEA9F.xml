@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="C5D312C5-7DAB-A76C-9EEA-0CA2FC7CEA9F" name="Animation">
+<createdBy>ivo</createdBy>
+<createdTime>2023-11-01 02:09:44 UTC</createdTime>
+<ownerDesignName>Generale</ownerDesignName>
+<engineerTo>
+<item key="E4BAB5E9-9D7D-DF11-A085-BDFB04DEC214" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+</Entity>
