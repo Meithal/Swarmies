@@ -1,3 +1,7 @@
 [submodule "Backend"]
 	path = Backend
 	url = https://github.com/PA-RVJV/Backend.git
+[submodule "Doc/assets/picocss"]
+	path = Doc/assets/picocss
+	url = https://github.com/picocss/pico.git
+	branch = v2
