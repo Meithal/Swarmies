@@ -1,0 +1,20 @@
+// Enable <header>, <main>, <footer> inside $semantic-root-element as containers
+$enable-semantic-container: true;
+
+// Enable a centered viewport for <header>, <main>, <footer> inside $enable-semantic-container 
+$enable-viewport: true;
+
+// Enable .classes
+$enable-classes: true;
+
+// Enable .grid class
+$enable-grid: false;
+
+// Enable transitions
+$enable-transitions: true;
+
+
+// Pico Lib
+// --------------------
+
+@import 'picocss/scss/pico';
