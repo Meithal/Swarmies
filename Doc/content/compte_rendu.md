@@ -12,3 +12,7 @@ Ca ne sert a rien de declarer une cle de map en tant que `const` https://stackov
 Creer une interface revient a creer une "pure virtual" methode et les classes qui en heritent comme final.
 
 Penser a deployer sur github pages https://gohugo.io/hosting-and-deployment/hosting-on-github/
+
+Il est utile de mettre un texte dans le destructeur pour 
+detecter les copies couteuses et les duplications dobjets s
+dues a un oubli de reference.
