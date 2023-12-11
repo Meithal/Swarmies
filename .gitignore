@@ -2,3 +2,5 @@
 .vs
 .DS_Store
 BUILD
+_build*
+cmake-build-*
