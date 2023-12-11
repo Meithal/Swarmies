@@ -50,7 +50,7 @@ jobs:
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
       - name: Show some debug data
         run: |
-          pwd
+          pwd \
           && ls -la
       - name: Build with Hugo
         env:
