@@ -63,6 +63,8 @@ jobs:
             --baseURL "${{ steps.pages.outputs.base_url }}/" \
             --source Doc \
             --destination ..
+      - name: Create a public directory
+        run: mkdir public
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
