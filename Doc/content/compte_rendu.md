@@ -7,9 +7,11 @@ draft = false
 Ivo 1 nov
 ---
 
-Ca ne sert a rien de declarer une cle de map en tant que `const` https://stackoverflow.com/questions/50593012/why-does-stdunordered-map-not-work-with-const-stdstring-key
+Ca ne sert a rien de declarer une cle de map en tant que 
+`const` https://stackoverflow.com/questions/50593012/why-does-stdunordered-map-not-work-with-const-stdstring-key
 
-Creer une interface revient a creer une "pure virtual" methode et les classes qui en heritent comme final.
+Creer une interface revient a creer une "pure virtual" 
+methode et les classes qui en heritent comme final.
 
 Penser a deployer sur github pages https://gohugo.io/hosting-and-deployment/hosting-on-github/
 
