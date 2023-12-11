@@ -48,10 +48,8 @@ jobs:
         uses: actions/configure-pages@v4
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
-      - name: Show some debug data
-        run: |
-          pwd \
-          && ls -la
+      - name: Create a public directory to build the site in
+        run: mkdir public
       - name: Build with Hugo
         env:
           # For maximum backward compatibility with Hugo modules
@@ -62,9 +60,7 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/" \
             --source Doc \
-            --destination ..
-      - name: Create a public directory
-        run: mkdir public
+            --destination ../public
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
