@@ -18,7 +18,6 @@ public class MoveCamera : MonoBehaviour
     private void OnEnable()
     {
         _gamepad = Gamepad.current;
-
     }
 
     private void OnDisable()
