@@ -43,3 +43,21 @@ mettre une commande de build qui le fasse avec une generator expression.
 
 Bugs Unity dee composant Camera non trouvé et lié au terrain, peut être 
 lié qu'on est passé à une nouvelle version d'unity.
+
+12 decembre
+---
+
+Deployement de ce projet hugo reussi.
+
+Resolu le prebleme déxecution de test 
+backend venant
+du fait que le backend est devenu un sous
+module.
+
+Reussi a mettre en place un workflow visual 
+studio code, probablement plus leger que
+d'avoir rider et clion ouverts.
+
+### Bloqueurs
+
+Le sass de pico ne build pas.
