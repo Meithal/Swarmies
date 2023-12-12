@@ -16,7 +16,8 @@ ennemie donnée.
 Gameplay de navigation
 ---
 
-Deplacer la camera
+Deplacer la camera, devoiler le brouillard de guerre
+pour avoir de nouveaux lieux à pointer.
 
 Gameplay de scoring
 ---
@@ -28,3 +29,9 @@ Gameplay de bluff
 ---
 
 Brouillard de guerre
+
+Gameplay de Combat
+---
+
+Vue en mode pokemon donjon mystere où on
+peut gérer la scène du combat au détail.
