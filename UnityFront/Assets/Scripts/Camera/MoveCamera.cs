@@ -7,7 +7,6 @@ using TouchPhase = UnityEngine.TouchPhase;
 
 public class MoveCamera : MonoBehaviour
 {
-
     public float scrollSpeed = 1f;
     public MeshFilter clampTo;
     private Camera _cam;
@@ -43,10 +42,10 @@ public class MoveCamera : MonoBehaviour
 
     void ComputeCameraBounds()
     {
-        Mesh mesh = clampTo.mesh;
-        Transform transform = clampTo.transform;
-        Vector3 position = transform.position;
-        Vector3 scale = transform.lossyScale;
+        var mesh = clampTo.mesh;
+        var terrainTransform = clampTo.transform;
+        var position = terrainTransform.position;
+        var scale = terrainTransform.lossyScale;
         var meshWidth = mesh.bounds.size.x;
         var meshHeight = mesh.bounds.size.z;
         _topLeftPos = new Vector3(
@@ -63,6 +62,7 @@ public class MoveCamera : MonoBehaviour
         //Debug.Log(transform.TransformPoint(_bottomRightPos));
         //_bottomRightPos.
     }
+
     bool CameraIsInBounds()
     {
         return true;
@@ -75,7 +75,7 @@ public class MoveCamera : MonoBehaviour
         
         var x = 0f;
         var y = 0f;
-        Vector3 pos = _cam.transform.position;
+        var pos = _cam.transform.position;
         // Debug.Log($"Cam: {pos} plane: {clampTo.mesh.bounds.max} Ray: {hit}"); 
         // Debug.Log(_cam.transform.position);
         Debug.DrawLine(_topLeftPos, _bottomRightPos, Color.red);
@@ -97,8 +97,8 @@ public class MoveCamera : MonoBehaviour
         #endregion
         
         #region mouse
-        Vector2Control mp = Mouse.current.position;
-        Rect rect = _cam.pixelRect;
+        var mp = Mouse.current.position;
+        var rect = _cam.pixelRect;
 
         if (mp.x.value is >= 0 and < 5)
         {
@@ -143,16 +143,16 @@ public class MoveCamera : MonoBehaviour
         if(Input.touchSupported && Input.touchCount == 2)
         {
             var touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
+            switch (touch.phase)
             {
-                this._touch = touch.position;
+                case TouchPhase.Began:
+                    this._touch = touch.position;
+                    break;
+                case TouchPhase.Moved:
+                    x = touch.position.x - _touch.x;
+                    y = touch.position.y - _touch.y;
+                    break;
             }
-            else if(touch.phase == TouchPhase.Moved)
-            {
-                x = touch.position.x - _touch.x;
-                y = touch.position.y - _touch.y;
-            }
-            
         }
         #endregion
 
@@ -180,13 +180,13 @@ public class MoveCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 cameraPosition = transform.position;
+        var cameraPosition = transform.position;
 
         // Clamp the camera's height above the mesh
         //cameraPosition.x = Mathf.Clamp(
         //    cameraPosition.x, clampTo.transform.position.y + minHeight, targetMesh.position.y + maxHeight);
 
         // Set the camera's new position
-        transform.position = cameraPosition;
+        _cam.transform.position = cameraPosition;
     }
 }

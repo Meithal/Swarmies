@@ -58,6 +58,9 @@ Reussi a mettre en place un workflow visual
 studio code, probablement plus leger que
 d'avoir rider et clion ouverts.
 
+Resolu le bug de script de camera attaché par
+erreur au game object Terrain.
+
 ### Bloqueurs
 
 Le sass de pico ne build pas.
