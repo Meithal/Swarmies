@@ -4,3 +4,4 @@
 BUILD
 _build*
 cmake-build-*
+*.dylib

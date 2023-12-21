@@ -64,3 +64,94 @@ erreur au game object Terrain.
 ### Bloqueurs
 
 Le sass de pico ne build pas.
+
+jeudi 21 decembre
+---
+
+On a voulu que le repo soit le seul objet dans le code
+a posseder des pointeurs sur sa structure interne, du coup
+quand on y ajoute un objet on ne prend que des r-value
+refences
+
+Du coup on a essayé de faire
+
+```c
+const T& add(const std::string &&name, T && object) {...code}
+const T& add(const std::string &&name, T && object) = delete;
+const T& add(const std::string &&name, T && object) = delete;
+
+```
+
+Mais a priori c'est pas nécessaire de delete explicitement.
+
+En changeant juste la fonction pour n'accepter que des  &&
+on a ce qu'on veut
+
+```c
+    struct Foo {
+        std::string name;
+        ~Foo() {
+            std::cout << "destroy foo" << std::endl;
+        }
+    } a_jeter("non");
+
+    auto repo = Swarmies::TRepository<Foo>();
+    auto &f = repo.add(
+            "toto", Foo{"toto"} // < r-value, ok, ce qu'on veut
+            );
+    repo.add("non", a_jeter); // < cette ligne la ne marche plus 
+    // car c'est une l-value, c'est ce qu'on veut.
+```
+
+On est obligé d'utiliser le constructeur par aggregat,
+car Foo("toto") genere une erreur
+
+```
+error: no matching conversion for functional-style cast from 'const char[5]' to 'Foo'
+```
+
+Pour lui Foo("toto") est un "functional-style cast" ?
+cf. https://en.cppreference.com/w/cpp/language/explicit_cast
+Dans notre cas precis a un seul argument, c'est equivalent
+a un cast de type C.
+
+Selon cette doc, une alternative serait d'écrire
+``Foo({"toto"})`` ce qui est plus verbeux que la 
+forme qu'on a.
+
+Ensuite dans notre methode `add` de notre `TRepository`
+on veut retourner une ref constante, et on ne peut
+plus écrire ``map[name] = object`` car l'operateur
+`[]` de unordered map a l'effet de bord de creer
+une instance de l'objet si il ne la trouve pas
+a l'adresse, specifiée, en apellant le constructeur
+par copie de l'objet. En déclarant un tel
+constructeur, on ne peut plus "aggregate initialiser"
+notre objet (`Foo{"toto"}`) a moins d'écrire un
+construteur pour. C'est assez fastidieux.
+
+La solution est d'écrire
+``map.emplace(name, std::move(object));`` quand on
+veut insérer, et `map.at(name)` quand on veut
+retourner, ce qui épargne toute construction
+par surprise.
+
+### Bloqueur
+C'est bizarre que le destructeur de l'objet temporaire
+que l'on move dans notre repo soit appellé
+avant que l'on teste l'objet en question, avant le 1er assert,
+en tout cas douteux.
+
+En declarant nous meme un constructeur par dep pour mitiger
+ca ``Foo(Foo&&other): name(other.name) {}``, ca enleve le
+constructeur par agregat `Foo{"toto"}`.
+
+Meme en ajoutant un tel constructeur, ca n'enleve pas
+le souci de l'appel de destructeur, l'avantage de déclarer
+un constructeur c'est que ca interdit la syntaxe
+
+``auto foo2= repo.get("toto");``
+et force le client a ecrire 
+``auto& foo2= repo.get("toto");``
+
+car ca supprime le constructeur par copie implicite.
