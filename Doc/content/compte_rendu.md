@@ -44,6 +44,13 @@ mettre une commande de build qui le fasse avec une generator expression.
 Bugs Unity dee composant Camera non trouvé et lié au terrain, peut être 
 lié qu'on est passé à une nouvelle version d'unity.
 
+lundi 11 decembre (semaine cours)
+---
+
+Ecrit un document de game design decrivant les differents
+gameplays contenus dans le jeu, au vu du cours de game 
+design de la matinée.
+
 12 decembre
 ---
 
@@ -155,3 +162,10 @@ et force le client a ecrire
 ``auto& foo2= repo.get("toto");``
 
 car ca supprime le constructeur par copie implicite.
+
+Vendredi 22 decembre
+---
+
+On a ecrit un document decrivant l'architecture du game state
+du jeu. On a aussi modifié notre repo et ajouté un test.
+
