@@ -169,3 +169,23 @@ Vendredi 22 decembre
 On a ecrit un document decrivant l'architecture du game state
 du jeu. On a aussi modifié notre repo et ajouté un test.
 
+
+Jeudi 28 decembre
+---
+
+Difficultés: creeer un ordonanceur qui contienne tous les repository :
+chaque repostory est de type template donc on ne peut pas juste
+delarer `std::array<TRepository>`, du coup un tableau de quoi ? D'une
+classe de base virtuelle?
+
+Typiquement `std::array<TRepository<Monster|Weapon>>`
+
+Ca me donne l'impression qu'on ne devrait avoir qu'un repository
+unique de "GameObjects" et tenir un inventaire séparé de pointeurs
+sur des meshes, textures, etc. à l'intérieur de ce repo.
+
+Réorganisé l'arborescence de code de sorte à avoir le code framework
+et le code spécifique à Swarmies séparé.
+
+Ai du changer le cmakelist pour copier les assets car ce n'etait
+pas implémenté assez solidement.

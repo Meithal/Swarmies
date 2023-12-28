@@ -107,3 +107,14 @@ L'ordonanceur gère tous les repos, et leur relations
 et leur mutations.
 Il n'est pas question ici d'horizontalité,
 on est dans une structure relationelle.
+
+On veut que la logique des interactions entités se fasse via
+LUA.
+
+Ordonanceur contient array/tuple/vector de repos de divers types
+On lui demande quelles relations on veut etablir 
+(la croissance des tables de relations serait exponentielle
+si on creait automatiquement des relations entre chaques entités)
+Pour chaque relation demandée il crée un répertoire de tags
+à chaque extrêmité, si besoin, ou a chaque fois si on veut
+éviter de brancher.
