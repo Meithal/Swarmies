@@ -144,6 +144,7 @@ retourner, ce qui épargne toute construction
 par surprise.
 
 ### Bloqueur
+
 C'est bizarre que le destructeur de l'objet temporaire
 que l'on move dans notre repo soit appellé
 avant que l'on teste l'objet en question, avant le 1er assert,
@@ -169,16 +170,18 @@ Vendredi 22 decembre
 On a ecrit un document decrivant l'architecture du game state
 du jeu. On a aussi modifié notre repo et ajouté un test.
 
-
 Jeudi 28 decembre
 ---
 
 Difficultés: creeer un ordonanceur qui contienne tous les repository :
 chaque repostory est de type template donc on ne peut pas juste
-delarer `std::array<TRepository>`, du coup un tableau de quoi ? D'une
+declarer `std::array<TRepository>`, du coup un tableau de quoi ? D'une
 classe de base virtuelle?
 
 Typiquement `std::array<TRepository<Monster|Weapon>>`
+
+Sur discord on m'a suggéré une classe de base virtuelle, un std::tuple,
+des pointeurs sur de tels types.
 
 Ca me donne l'impression qu'on ne devrait avoir qu'un repository
 unique de "GameObjects" et tenir un inventaire séparé de pointeurs
@@ -189,3 +192,14 @@ et le code spécifique à Swarmies séparé.
 
 Ai du changer le cmakelist pour copier les assets car ce n'etait
 pas implémenté assez solidement.
+
+Separé tags et relations, laissant l'ordonnanceur se charger 
+de faire le liant.
+
+Vendredi 29
+---
+
+Progrès dans l'ordonnanceur, abandonne idée d'avoir un
+ordonnanceur `constexpr` avec instantiation directe. 
+Amélioration usabilité XCode en categorisant
+fichiers source selon les dossiers où ils sont.
