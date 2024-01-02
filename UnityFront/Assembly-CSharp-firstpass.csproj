@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Folder Include="Assets/Plugins" />
+     <Folder Include="Assets/Plugins/Levels" />
      <Reference Include="UnityEngine">
      <HintPath>/Applications/Unity/Hub/Editor/2022.3.13f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
      </Reference>

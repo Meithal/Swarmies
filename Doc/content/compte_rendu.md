@@ -203,3 +203,7 @@ Progrès dans l'ordonnanceur, abandonne idée d'avoir un
 ordonnanceur `constexpr` avec instantiation directe. 
 Amélioration usabilité XCode en categorisant
 fichiers source selon les dossiers où ils sont.
+
+Dimanche 31
+---
+

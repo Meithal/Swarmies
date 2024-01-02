@@ -21,8 +21,8 @@ public class WorldEventsScript : MonoBehaviour
     {
         if (Input.anyKeyDown && m_event != null)
         {
-            m_event.Invoke();
-            Debug.Log(UnityEventQueueSystem.GenerateEventIdForPayload("MyCustomEvent"));
+            //m_event.Invoke();
+            //Debug.Log(UnityEventQueueSystem.GenerateEventIdForPayload("MyCustomEvent"));
 
         }
 
