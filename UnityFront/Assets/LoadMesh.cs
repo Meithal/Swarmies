@@ -17,6 +17,9 @@ public class LoadMesh : MonoBehaviour
     private static extern void LoadLevelMesh(char[] levelName, float[][] vertices);
     
     [DllImport("UnityGlue")]
+    private static extern int MeshVerticesNumber(char[] levelName);
+    
+    [DllImport("UnityGlue")]
     private static extern float SayHello();
     
     // Start is called before the first frame update
@@ -34,8 +37,8 @@ public class LoadMesh : MonoBehaviour
     public void OnButtonClick()
     {
         Debug.Log("Click");
-        LoadLevelMesh("test_topo".ToCharArray(), new float[][]);
+        //LoadLevelMesh("test_topo".ToCharArray(), );
         //SayHello();
-
+        Debug.Log( MeshVerticesNumber("test_topo".ToCharArray()));
     }
 }

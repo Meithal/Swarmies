@@ -89,6 +89,7 @@
      <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras/Sprites" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <Folder Include="Assets/TextMesh Pro/Sprites" />
+     <Folder Include="Assets/GameAssets" />
      <Folder Include="Assets/TextMesh Pro/Resources/Sprite Assets" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />
      <Folder Include="Assets/Scripts/Rules" />
@@ -102,6 +103,7 @@
      <Folder Include="Assets/TextMesh Pro" />
      <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras/Fonts" />
      <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras/Resources" />
+     <Folder Include="Assets/GameAssets/Levels" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader" />
      <None Include="Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader" />

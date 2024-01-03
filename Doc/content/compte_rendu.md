@@ -207,3 +207,34 @@ fichiers source selon les dossiers où ils sont.
 Dimanche 31
 ---
 
+Pas mal de reorganisations.
+
+Mardi 2
+---
+
+Trouvé comment debuger code natif depuis rider.
+https://forum.unity.com/threads/how-to-debug-a-native-c-plugin.428681/
+
+On ne peut ``push_back`` un vecteur de C arrays.
+Ils n'acceptent la copie, donc wrap dans une
+struct pour que ca marche, sans avoir a faire
+a std::array et l'interop C/C#.
+
+Bien avancé dans load de mesh.
+
+Mercredi 3 janvier 2024
+---
+Quelques soucis pour charger les modeles.obj par le plugin
+natif pendant le runtime. Je ne sais pas où se situe la
+racine a partir de laquelle ouvrir un fichier.
+
+Piste : https://forum.unity.com/threads/plugins-and-resources-inside-package.730328/
+
+Du coup on utilise le composant filesystem de c++17 pour prober l'environnement.
+
+Ca me fait réaliser le problème d'un plugion natif : il a accès à tout
+l'environnement (comme tout autre jeu c++), alors qu'un jeu unity pourrait
+être sandboxé et plus facilement distribuable.
+
+A implementé une fonction de comput de vertices pour pouvoir
+allouer un tableau de taille fixe dans c sharp.
