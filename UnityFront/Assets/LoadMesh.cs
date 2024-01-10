@@ -14,7 +14,7 @@ public class LoadMesh : MonoBehaviour
 
     //public Button loadMeshButton;
     [DllImport("UnityGlue")]
-    private static extern void LoadLevelMesh(char[] levelName, out float[][] vertices);
+    private static extern void LoadLevelMesh(char[] levelName, int size, float[] vertices);
     
     [DllImport("UnityGlue")]
     private static extern int MeshVerticesNumber(char[] levelName);
@@ -43,9 +43,9 @@ public class LoadMesh : MonoBehaviour
         
         int vc = MeshVerticesNumber("test_topo".ToCharArray());
 
-        var vertices = new float[vc][];
+        var vertices = new float[vc*3];
         
-        LoadLevelMesh("test_topo".ToCharArray(), out vertices);
+        LoadLevelMesh("test_topo".ToCharArray(), vc, vertices);
         
         Debug.Log($"verticles {vertices.Length}");
         foreach (var vertex in vertices)
