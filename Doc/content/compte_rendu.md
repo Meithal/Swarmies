@@ -238,3 +238,37 @@ l'environnement (comme tout autre jeu c++), alors qu'un jeu unity pourrait
 
 A implementé une fonction de comput de vertices pour pouvoir
 allouer un tableau de taille fixe dans c sharp.
+
+Jeudi 4 janvier
+---
+A etabli une fonction qui cree le tableau de vertices a partir
+de la taille qu'on connait.
+
+Reste a vraiment y mettre des vertices. Le probleme c'est
+que le C# interop ne fonctionne qu'avec du code C, donc
+on a du adapter notre vecteur du coté C++ de ne pas
+utiliser de std::array.
+
+Vendredi 5 janvier
+---
+Definit un nom au mesh.
+Soiree: etudié l'interop managed/unmanaged de csharp.
+https://learn.microsoft.com/en-us/dotnet/framework/interop/consuming-unmanaged-dll-functions
+https://learn.microsoft.com/en-us/dotnet/framework/interop/passing-structures
+
+Samedi 6
+---
+Suivi cours linkedin learning, a decouvert Fsharp pour manipuler megadonnee
+Trouvé sur le site cmake https://www.kitware.com/create-dlls-on-windows-without-declspec-using-new-cmake-export-all-feature/
+le projet root qui ravaille sur le giga et l'exadonnee https://root.cern.ch//
+
+Dimanche 7
+---
+
+Surtout passé du temps à étudier F#, l'ecosystème microsoft et des videos youtube 
+(casey muratori) plutot occupantes.
+
+Mardi 9
+---
+Article interessant sur l'interop
+https://learn.microsoft.com/en-us/dotnet/standard/native-interop/best-practices
