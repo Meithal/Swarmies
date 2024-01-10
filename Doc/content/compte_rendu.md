@@ -272,3 +272,9 @@ Mardi 9
 ---
 Article interessant sur l'interop
 https://learn.microsoft.com/en-us/dotnet/standard/native-interop/best-practices
+
+Mercredi 10
+---
+
+Mis la glue swarmies dans le projet swarmies, de sorte la glu
+puisse utiliser des choses specifiques a swarmies.
