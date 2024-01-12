@@ -278,3 +278,15 @@ Mercredi 10
 
 Mis la glue swarmies dans le projet swarmies, de sorte la glu
 puisse utiliser des choses specifiques a swarmies.
+
+Jeudi 11
+---
+Reussi a lier des donnees de vertex entre back c++ et le
+code unity
+
+Vendredi
+---
+Lu le scripting api page pour savoir comment creer un mesh dans
+unity. Reste a charger triangles et normales il semblerait.
+Il n'y a pas de moyen simple dans unity de passer en mode
+wireframe sans un shader.
