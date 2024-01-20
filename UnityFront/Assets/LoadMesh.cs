@@ -64,7 +64,7 @@ public class LoadMesh : MonoBehaviour
         
         mesh.Clear();
         mesh.vertices = vertices_p;
-        mesh.normals = normals_p;
+        //mesh.normals = normals_p;
         mesh.triangles = tris;
 
         GameObject go = new GameObject("test_topo");

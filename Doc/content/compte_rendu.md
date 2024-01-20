@@ -330,6 +330,8 @@ Il faut aussi set les indices d'abord, puis les triangles, chacun
 en un seul tenant pour que le moteur vérifie la cohérence
 des points donnés.
 
+![Mesh sans les normales](</images/default_material.png>)
+
 Pour les normales unity s'attend qu'à chaque vertex soit associé
 une normale car c'est ainsi que les cartes graphiques fonctionnent
 
@@ -351,3 +353,30 @@ Pour les collisions, le plus simple serait d'avoir un
 mesh de géométrie et un mesh de collision dans notre
 .obj. On pourrait utiliser une convention de nommage
 pour distinguer les deux au sein du fichier.
+
+L'interet de `Vertex{1, 2}` est que si on a un objet
+qui s'initialise avec plus d'un paramètre tels que
+```c
+struct Vertex {
+    int coordinates_ref;
+    int normal_ref;
+};
+```
+
+On doit lui écrire un constructeur si on l'initialise
+comme `Vertex(a[i][0], a[i][2])`. Alors qu'en 
+l'initialisant `Vertex{a[i][0], a[i][2]}` on n'a
+pas besoin de lui écrire un constructeur.
+
+On a reussi a charger correctement un mesh en
+creant un map (ordonné) de couplets vertice/normal
+
+Notre iterateur de triangle renvoie une reference
+a cette map a partir du hash qu'o obtient a partir
+du couplet.
+
+![Mesh avec les normales](</images/with_normals.png>)
+
+Reste a comprendre pourquoi l'objet
+est si petit par rapport a l'asset
+importé via `.fbx`.
