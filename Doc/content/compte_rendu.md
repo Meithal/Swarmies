@@ -290,3 +290,20 @@ Lu le scripting api page pour savoir comment creer un mesh dans
 unity. Reste a charger triangles et normales il semblerait.
 Il n'y a pas de moyen simple dans unity de passer en mode
 wireframe sans un shader.
+
+Dimanche
+---
+Trouvé http://web.cse.ohio-state.edu/~shen.94/581/Site/Lab3_files/Labhelp_Obj_parser.htm
+Continue le parseur obj pour l'afficher en jeu.
+
+Samedi 20 janvier
+---
+cree un iterateur qui sort les indices des vertexes de nos face
+depuis notre structure de faces. Appris que dans l'iterateur
+end doit retourner l'indice un cran apres la fin.
+
+Il faut aussi apeller Clear() avant de set les indices.
+
+Il faut aussi set les indices puis les triangles, chacun
+en un seul tenant pour que le ñoteur calcule l'exactitude
+des points.

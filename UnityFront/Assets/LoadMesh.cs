@@ -11,26 +11,20 @@ public class LoadMesh : MonoBehaviour
     
     //public Button loadMeshButton;
     [DllImport("UnityGlue")]
-    private static extern void LoadLevelMesh(char[] levelName, int size, float[] vertices);
+    private static extern void LoadLevelMesh(char[] levelName, float[] vertices, float[] norms, float[] uvs, int[] tris);
     
     [DllImport("UnityGlue")]
     private static extern int MeshVerticesNumber(char[] levelName);
+    [DllImport("UnityGlue")]
+    private static extern int MeshNormalsNumber(char[] levelName);
+    [DllImport("UnityGlue")]
+    private static extern int MeshUVNumber(char[] levelName);
+    [DllImport("UnityGlue")]
+    private static extern int MeshTrianglesNumber(char[] levelName);
     
     [DllImport("UnityGlue")]
     private static extern float SayHello();
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        //loadMeshButton.onClick.AddListener((() => Debug.Log("Click")));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnButtonClick()
     {
         Debug.Log("Click");
@@ -39,27 +33,48 @@ public class LoadMesh : MonoBehaviour
         Debug.Log( MeshVerticesNumber("test_topo".ToCharArray()));
         
         int vc = MeshVerticesNumber("test_topo".ToCharArray());
+        int nc = MeshNormalsNumber("test_topo".ToCharArray());
+        int uvc = MeshUVNumber("test_topo".ToCharArray());
+        int tc = MeshTrianglesNumber("test_topo".ToCharArray());
 
         var vertices = new float[vc*3];
+        var norms = new float[nc*3];
+        var uvs = new float[uvc * 2];
+        var tris = new int[tc];
         
-        LoadLevelMesh("test_topo".ToCharArray(), vc, vertices);
+        LoadLevelMesh("test_topo".ToCharArray(), vertices, norms, uvs, tris);
 
-        Mesh mesh = new Mesh();
-        mesh.name = "test_topo";
-
+        var mesh = new Mesh
+        {
+            name = "test_topo",
+        };
+        //mesh.triangles = new int[tc];
+        var vertices_p = new Vector3[vc];
         for (int i = 0; i < vertices.Length / 3; i++)
         {
-            mesh.vertices.Append(new Vector3(vertices[i * 3 + 0], vertices[i * 3 + 1], vertices[i * 3 + 2]));
+            vertices_p[i] = new Vector3(vertices[i * 3 + 0], vertices[i * 3 + 1], vertices[i * 3 + 2]);
         }
+        mesh.Clear();
+        mesh.vertices = vertices_p;
+        mesh.triangles = tris;
 
-        MeshFilter meshFilter = target.AddComponent<MeshFilter>();
+        GameObject go = new GameObject("test_topo");
+        var meshFilter = go.AddComponent<MeshFilter>();
         meshFilter.mesh = mesh;
         
+        MeshRenderer meshRenderer = go.AddComponent<MeshRenderer>(); 
         
-        Debug.Log($"verticles {vertices.Length}");
-        foreach (var vertex in vertices)
-        {
-            Debug.Log(vertex);
-        }
+        
+        // Assign the default material to the MeshRenderer
+        meshRenderer.material = new Material(Shader.Find("Diffuse"));
+
+        go.transform.parent = target.transform;
+        go.transform.localScale *= 10;
+         
+        Debug.Log($"verticles {vertices.Length} {norms.Length}  {tris.Length}");
+        // foreach (var vertex in vertices)
+        // {
+        //     Debug.Log(vertex);
+        // }
     }
 }
