@@ -54,8 +54,17 @@ public class LoadMesh : MonoBehaviour
         {
             vertices_p[i] = new Vector3(vertices[i * 3 + 0], vertices[i * 3 + 1], vertices[i * 3 + 2]);
         }
+
+        var normals_p = new Vector3[nc];
+        for (int i = 0; i < norms.Length / 3; i++)
+        {
+            normals_p[i] = new Vector3(norms[i * 3 + 0], norms[i * 3 + 1], norms[i * 3 + 2]);
+        }
+
+        
         mesh.Clear();
         mesh.vertices = vertices_p;
+        mesh.normals = normals_p;
         mesh.triangles = tris;
 
         GameObject go = new GameObject("test_topo");

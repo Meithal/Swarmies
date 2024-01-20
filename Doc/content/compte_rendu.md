@@ -302,8 +302,52 @@ cree un iterateur qui sort les indices des vertexes de nos face
 depuis notre structure de faces. Appris que dans l'iterateur
 end doit retourner l'indice un cran apres la fin.
 
-Il faut aussi apeller Clear() avant de set les indices.
+On ne peut pas iterer a travers les vertices d'un mesh 
+et les changer un par un, il faut les charger en un seul 
+tenant. Il faut aussi apeller Clear() avant de set les indices.
+Par exemple ceci ne fonctionne pas
 
-Il faut aussi set les indices puis les triangles, chacun
-en un seul tenant pour que le ñoteur calcule l'exactitude
-des points.
+```c
+for (int i = 0; i < vertices.Length / 3; i++)
+{
+    mesh.vertices[i] = new Vector3(vertices[i * 3 + 0], vertices[i * 3 + 1], vertices[i * 3 + 2]);
+}
+```
+mais cela fonctionne
+
+```c
+
+var vertices_p = new Vector3[vc];
+for (int i = 0; i < vertices.Length / 3; i++)
+{
+    vertices_p[i] = new Vector3(vertices[i * 3 + 0], vertices[i * 3 + 1], vertices[i * 3 + 2]);
+}
+mesh.Clear();
+mesh.vertices = vertices_p;
+```
+
+Il faut aussi set les indices d'abord, puis les triangles, chacun
+en un seul tenant pour que le moteur vérifie la cohérence
+des points donnés.
+
+Pour les normales unity s'attend qu'à chaque vertex soit associé
+une normale car c'est ainsi que les cartes graphiques fonctionnent
+
+https://forum.unity.com/threads/why-are-normals-saved-on-a-per-vertex-basis.742184/#:~:text=To%20do%20triangle%20normal%20interpolation,and%20a%20lot%20more%20math.
+
+Or le format `.obj` compresse les normales en un seul tableau,
+c'est à nous de reproduire les vraies vertices à partir des
+couplet cooordonées/normales fournies par le format .obj.
+
+Cela est expliqué ici
+
+https://blender.stackexchange.com/questions/63348/export-vertex-normals-into-obj-file
+
+Quand on exporte il faut aussi demander à l'exporteur de trianguler
+nos mesh, et toujours travailler en quans (beaucoup plus simple de 
+faire des loop cuts ainsi et beaucoup plus maniables).
+
+Pour les collisions, le plus simple serait d'avoir un
+mesh de géométrie et un mesh de collision dans notre
+.obj. On pourrait utiliser une convention de nommage
+pour distinguer les deux au sein du fichier.
