@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<title>Compte_rendu_eversim</title>
+
+<link rel="stylesheet" href="//meithal.github.io/main.min.css">
+
+    </head>
+
+    <body>
+        <header>
+
+        </header>
+        <main>
+    
+            
+ <h2 id="lundi-20-novembre-2023">lundi 20 novembre 2023</h2>
+<p>Arrivé au travail, commencé à travailler su le poste 143.</p>
+<p>Eu la matinée pour lire la documentation du moteur de jeu en emploi.</p>
+<p>Eu pour tâche d&rsquo;implémenter une nouvelle interface pour l&rsquo;interface de news
+de la tablette vie l&rsquo;api &laquo; GUI &raquo;. A été aidé par autres membres plus avancés,
+certains présents seulement depuis 2 semaines toutefois.</p>
+<h2 id="mardi-21-novembre">mardi 21 novembre</h2>
+<p>On s&rsquo;est rendu compte que l&rsquo;interface &laquo; GUI &raquo; n&rsquo;était pas adaptée
+pour autre chose que les dialogues flottants, du coup a du implémenter
+selon la maquette de manière traditionelle en dessinant les
+sprites, textes et les positionnant manuellement.</p>
+<h2 id="mercredi-22">mercredi 22</h2>
+<p>Travail sur la tablette</p>
+<h2 id="jeudi-23">jeudi 23</h2>
+<p>Idem, appris comment ajouter du texte localisé dans le jeu</p>
+<h2 id="vendredi-24">Vendredi 24</h2>
+<p>Premier commit, modification presentation tablette de 4GW pour qu&rsquo;elle
+fonctionne avec le systeme de GPS</p>
+<h2 id="lundi-27-et-mardi-28">Lundi 27 et Mardi 28</h2>
+<p>Travail sur la categorisation des news, ajout d&rsquo;un champ dans Defpersos et Defgroups
+pour categoriser le type de news qu&rsquo;ils produisent. Avancé sur la tablette.</p>
+<h2 id="mercredi-29">Mercredi 29</h2>
+<p>Reelement fait le lien avec la categorie des news et ce qui s&rsquo;affiche</p>
+<p>Travaillé sur les boutons de filtrage</p>
+<h2 id="jeudi-30">Jeudi 30</h2>
+<p>Affichage des portraits du sujet de la news</p>
+<h2 id="vendredi-1er-decembre">Vendredi 1er decembre</h2>
+<p>Ajout dessin globe sur tablette</p>
+<h2 id="lundi-4-desembre">Lundi 4 desembre</h2>
+<p>Debut travail sur selecteur de persos de missions.</p>
+<h2 id="mardi-5-decembre">Mardi 5 decembre</h2>
+<p>Separation visuelle des pdg et presidents dna selecteur persos.
+La combobox corp est dans son propre ecran.</p>
+<h2 id="mercredi-6-decembre">Mercredi 6 decembre</h2>
+<p>matin:Affiche corp dans son propre onglet.
+aprem:replacé un int utilisé dans la boucle du jeu par un enum de sorte a avoir un typage</p>
+<h2 id="jeudi-7">Jeudi 7</h2>
+<p>Debut travail selecteur de marque calqué sur le selecteur de corp, travail sur le systeme GUI</p>
+<h2 id="vendredi-8-decembre">Vendredi 8 decembre</h2>
+<p>Retourné sur tablette. plein d&rsquo;ajustements, maintenant la tablette se maj auto quand une nle
+new apparait.</p>
+<h2 id="lundi-18-decembre">Lundi 18 decembre</h2>
+<p>Apres semaine de cours. Commencé a travaillé sur système de scrollbarre autoregenerante.
+Mauvaise idde au final.
+Tout cela pour eviter que la scrollbarre saute quand on passe d&rsquo;une catégorie à une
+autre. Il se trouve que l&rsquo;objet scrollbar accepte une position initiale, du
+coup on reutilise ce systeme.</p>
+<p>A eu de nouvelles taches de faire barre du haut CEO et ecran d&rsquo;accueil affichage
+scenars.</p>
+<h2 id="mardi-19-decembre">Mardi 19 decembre</h2>
+<p>Ajouté les portraits de news, nettoyé le code de filtrage de news et tout marche.
+Aussi fixé le gui du jeu enlevé par un stagiaire.</p>
+<h2 id="mercredi-20-decembre">Mercredi 20 decembre</h2>
+<p>Legers ajustements sur tablette. Surtout travaillé sur fontes illisibles sur reso
+ordi portable. En a parlé a LMR. Au final on a crée une nouvelle fontebasewide.
+Utilisée sur tablette et barre du haut</p>
+<h2 id="jeudi-21-decembre">Jeudi 21 decembre</h2>
+<p>Tout un tas d&rsquo;ajustements sur cette tablette. Notamment les pages zoomées.
+Rendu les portrait et drapeau xclickables.
+Debut travail sur barre CEO.</p>
+<h2 id="vendredi-22-decembre">Vendredi 22 decembre</h2>
+<p>Compris ce qui n&rsquo;allait pas avec les dimensions de la tablette (merci aur).
+Du coup les elements sont placés avec un peu plus de &ldquo;logique&rdquo;. A rajoute
+un nouveau clip pour que tout soit positionné à partir de 0,0 et non une valeur bizarre.</p>
+<h2 id="vendredi-29-decembre">Vendredi 29 decembre</h2>
+<p>A vraiment implementé logique barre ceo. Fixé un bug ou la barre
+du haut se redessinait a chaque frame. Ce permet du coup d&rsquo;avoir des effet de fade-in fade-out.
+Surtout passé du temps a factoriser le code pour que la barre president normal s&rsquo;affiche
+avec une fonction generique reutilisable par la barre CEO. Ca a causé des bugs
+difficile a trouver car on a passé une valeur par valeur et non reference.</p>
+<p>Mis en place la logique de getval d&rsquo;info CEO. Toutes les données ne sont
+pas implémentées, comme les fluctuations de bourse. D&rsquo;autres personnes
+doivent s&rsquo;en occuper.</p>
+<h2 id="mardi-19-decembre-1">mardi 19 decembre</h2>
+<p>Fini nombreux ajustements tablette news, avec scrollbar qui garde en
+memoire la pos precedente.
+Aurelien a fix hauteur incorrecte de celle-ci. Rendu les
+drapeaux et icones persos clickables en decommentant du code principalement.
+Retabli barre de haut noire. Le stagiaire Jeremy est parti.</p>
+<h2 id="mercredi-20-decembre-1">mercredi 20 decembre</h2>
+<p>Trouvé avec Aurelien  pourquoi toutes les polices étaient écrasées.
+Comme les dimensions d&rsquo;une police sont au format 1:1 et que notre affichage
+se fait en 16:9 (1.7 fois plus large que haut) il faut ajouter un &ldquo;scale x&rdquo;
+sur les fontes.</p>
+<p>Du coup a du retravailler tablette pour tenir compte nouvelle
+largeur fonte. Commencé a s&rsquo;interesser aux fluctuations du cours
+d&rsquo;une société, mais c&rsquo;est pas implémenté dans le moteur.</p>
+<h2 id="jeudi-21">Jeudi 21</h2>
+<p>Surtout retravaillé la page de news, rdv avec lmr evoqué le probleme des fontes</p>
+<h2 id="vendredi-22">Vendredi 22</h2>
+<p>Fini la page de popup des news dans la matinée.
+Dans l&rsquo;après midi commencé à travailler sur la barre de CEO.
+A voulu factoriser la fonction qui dessine chaque donnée
+de cette barre, ca a causé quelques soucis, notamment d&rsquo;objets
+texte qui se redessinent en boucle car passés par valeur.</p>
+<h2 id="jeudi-28">Jeudi 28</h2>
+<p>Du arriver à midi car TER.</p>
+<p>Continué l&rsquo;affichage en haut, compris et amélioré la logique
+pour ne pas avoir la barre qui se réaffiche en permanence,
+avec flèches éphémères.</p>
+<p>Pour la barre ceo a du factoriser un peu plus pour tenir
+compte de plus de variants, ajouté texte qui blink.</p>
+<p>Reste la partie droite de la barre.</p>
+<h2 id="vendredi-30">Vendredi 30</h2>
+<p>A du changer de poste pour laisser place a nouveau stagiaire.
+Du reinstaller et mettre a jour le projet. Mise a jour
+moteur qui a necessité pas mal de temps.</p>
+<p>Compris que on peut jouer simultanément plusieurs présidents
+et CEO, mis à jour la barre du haut en correspondance.</p>
+<p>La logique de la barre du haut intègre un système de QCM
+qui est parait-il cassé. Elle intègre un système
+d&rsquo;opposant politique qui est aussi cassé et un système
+de groupe armé que je n&rsquo;ai pas pu tester mais qui
+ne concerne pas l&rsquo;affichage CEO. Il y a aussi une
+logique d&rsquo;écran 4K qui est cassé mais semble récupérable.</p>
+<h2 id="mardi-2-janvier-2024">Mardi 2 janvier 2024</h2>
+<p>Passé 5 heures a essayer de rebuild. Fini par reutiliser
+les .dat d&rsquo;un collègue. Apres reflexion probleme viendrait
+d&rsquo;une directive de preprocesseur, etant le seul a avoir des
+problemes.</p>
+<p>Avancé marginalement sur l&rsquo;écran de scénario.</p>
+<h2 id="mercredi-3-janvier">Mercredi 3 janvier</h2>
+<p>A essayé de comprendre comment les missions sont chargées.
+A desactivé les missions anciennes car elles necessitent
+de rebuild des bases anciennes.</p>
+<h2 id="jeudi-4-janvier">Jeudi 4 janvier</h2>
+<p>A desactivé d&rsquo;autres missions anciennes qui causent un plantage.
+A commencer a travailler pour de vrai sur le GUI.</p>
+<h2 id="vendredi-5-janvier">Vendredi 5 janvier</h2>
+<p>matin: stuck sur un rebuild a priori buggé. S&rsquo;est renseigné
+sur les cdialog pour eviter le stretch des sprite.</p>
+<p>Aprem: a reussi a empecher le squash and stretch des sprite
+en utilisant le meme systeme que les dialog (_panel).</p>
+<h2 id="lundi-8">Lundi 8</h2>
+<p>travaillé sur laseparation entre logique et affichage, pris tout le jour</p>
+<h2 id="mardi-9">Mardi 9</h2>
+<p>travaillé toute la journee sur separation. apres discussion avec lmr
+a realise que fait fausse route.</p>
+<h2 id="mercredi-10">Mercredi 10</h2>
+<p>matin: remis a plat, refactor certain truc, utilise nle scrolltab au lieu de ancienne</p>
+<h2 id="jeudi">Jeudi</h2>
+<p>A fait marcher la scrolltab</p>
+<h2 id="vendredi">Vendredi</h2>
+<p>Compris le bug de positionnement du textarea merci thimas
+Fait enchainement 2 screens.</p>
+
+
+        </main>
+        <footer>
+        </footer>
+    </body>
+</html>

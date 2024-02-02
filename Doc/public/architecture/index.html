@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<title>Architecture</title>
+
+<link rel="stylesheet" href="//meithal.github.io/main.min.css">
+
+    </head>
+
+    <body>
+        <header>
+
+        </header>
+        <main>
+    
+            
+ <p>On veut que tous les objets du jeu soient dans un repo.</p>
+<p>On veut pouvoir faire des recherches dichotomiques dans
+ce repo sur n&rsquo;importe quel critere (comme les colonnes avec
+index de SQL).</p>
+<p>On veut pouvoir faire des insertions et suppression en O(log(N))
+en utilisant des arbres AVL sur les differents criteres du repo
+qui nous interesse. Ajouter ou supprimmer un item du repo
+modifie le arbres de recherche associés.</p>
+<p>La structure primaire est un vecteur
+qui fonctionne comme une queue, ou les insertions se font
+cycliquement, a la fin, en modulo si taille &lt; capacité,
+et les supressions ne font que marquer
+la valeur comme supprimée. Dans la plupart des cas les
+insertions se font en O(1), et le pire en Omega(N).
+Les suppressions sont toujours en 0(1).</p>
+<p>Généralement on veut encourager le pooling d&rsquo;objets en
+demandant chaque objet de repo d&rsquo;implementer une méthode <code>reset</code>
+qui modifie son état interne de sorte à pouvoir être
+réutilisé.</p>
+<p>On veut que nos objets contiennent peu d&rsquo;informations
+et qu&rsquo;un objet complexe se compose via un ECS. De la
+sorte nos copies d&rsquo;objets sont rapides.</p>
+<p>On veut que les objets stockés dans le repo soient mutables.</p>
+<p>Remarque : il pourrait être intéressant de voire les gains
+de performance d&rsquo;avoir des objets immutables car cela
+permet de nombreuses optimisations. Chaque mutation
+creerait un nouvel objet dans le repo, a la maniere de Redux.</p>
+<p>On pourrait aussi n&rsquo;autoriser les mutations que depuis
+des reducteurs et marquer les reducteurs comme <code>friend</code>
+des repos, et seuls eux pourraient modifier le repo.</p>
+<p>On veut que les objets retournés depuis le repo soient
+des copies de sorte qu&rsquo;on ne puisse pas modifier
+le repo depuis l&rsquo;exterieur.</p>
+<p>Le repo n&rsquo;admet d&rsquo;updates que depuis des references
+de r-values (&amp;&amp;) de sorte a limiter le danger de modifier
+un objet depuis l&rsquo;exterieur du repo.</p>
+<p>On veut que les relations entre objets soient stockés
+séparément (evite le probleme de la poule et de l&rsquo;oeuf).</p>
+<p>On veut que toutes les relations soit m-n (ManyToMany).
+On peut simuler une relation 1-n, et tagant une cardinalité
+comme &ldquo;no_siblings&rdquo;, mais en interne elle sera stockée m-n.</p>
+<p>On veut qu&rsquo;à la suppression d&rsquo;un objet,
+les relations qui lui sont associées le soient aussi,
+et qu&rsquo;en fonction de la cardinalité de l&rsquo;objet
+supprimé, d&rsquo;autres le soient aussi, de proche en proche
+(par exemple si l&rsquo;objet est un objet &ldquo;pere&rdquo;, que d&rsquo;autres
+le sont aussi, et ainsi de suite).</p>
+<p>On doit pouvoir tagger les relations pour savoir
+comment se comporter en cas de suppression, de mutation.
+Comme dans SET_NULL, CASCADE de SQL.</p>
+<p>Une relation cyclique pere-pere ne devrait pas
+suprimmer l&rsquo;autre par exemple. Donc le tag &ldquo;isPere&rdquo;
+attribué par une relation d&rsquo;apparentage devrait
+l&rsquo;emporter sur un tag &ldquo;isEnfant&rdquo; attribué
+par une relation de filiation.</p>
+<p>Une relation peut simplement demander de heriter
+la position,rotation,scale de son parent.</p>
+<p>A priori on ne veut pas contrôles que des
+relations ne soient pas dupliquées, ou
+qu&rsquo;il n&rsquo;y a pas de relation cyclique,
+mais on devrait pouvoir être tolérant
+à ces cas particuliers. D&rsquo;une part
+on part du principe que le dev sait ce qu&rsquo;il fait.
+Da&rsquo;utre part ces vérifications
+auraient un coût au runtime; mais on peut
+imaginer qu&rsquo;en mode debug on le fasse.</p>
+<p>Les suppressions se font dans un ordonanceur
+dont quand un pere est supprimé il peut signaler
+une demande de suppression de ses fils,
+mais ensuite les enfants peuvent demander l&rsquo;annulation
+de la suppression.</p>
+<p>C&rsquo;est l&rsquo;ordonnanceur qui donne la semantique
+aux relations, les infos semantiques sont stockées
+séparément des relations.
+Les relations sont stockées séparement des objets.</p>
+<p>Une fois que l&rsquo;ordonanceur lance une suppression,
+une modification ou tout processus necessitant
+une modification de l&rsquo;état du repo se fait de
+manière atomique.</p>
+<p>L&rsquo;ordonanceur gère tous les repos, et leur relations
+et leur mutations.
+Il n&rsquo;est pas question ici d&rsquo;horizontalité,
+on est dans une structure relationelle.</p>
+<p>On veut que la logique des interactions entités se fasse via
+LUA.</p>
+<p>Ordonanceur contient array/tuple/vector de repos de divers types
+On lui demande quelles relations on veut etablir
+(la croissance des tables de relations serait exponentielle
+si on creait automatiquement des relations entre chaques entités)</p>
+<p>Pour chaque relation demandée il crée un répertoire de tags
+à chaque extrêmité, si besoin, ou a chaque fois si on veut
+éviter de brancher.</p>
+
+
+        </main>
+        <footer>
+        </footer>
+    </body>
+</html>

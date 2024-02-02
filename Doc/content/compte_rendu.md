@@ -380,3 +380,10 @@ du couplet.
 Reste a comprendre pourquoi l'objet
 est si petit par rapport a l'asset
 importé via `.fbx`.
+
+lundi 29 janvier
+---
+A eu reunion samedi en vocal.
+
+Tous les problemes de camera 
+https://blender.stackexchange.com/questions/3502/how-can-i-make-a-camera-the-active-one

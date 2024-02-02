@@ -30,7 +30,7 @@ public class LoadMesh : MonoBehaviour
         Debug.Log("Click");
         //LoadLevelMesh("test_topo".ToCharArray(), );
         //SayHello();
-        Debug.Log( MeshVerticesNumber("test_topo".ToCharArray()));
+        Debug.Log( MeshVerticesNumber("test_topo3".ToCharArray()));
         
         int vc = MeshVerticesNumber("test_topo".ToCharArray());
         int nc = MeshNormalsNumber("test_topo".ToCharArray());
@@ -64,7 +64,7 @@ public class LoadMesh : MonoBehaviour
         
         mesh.Clear();
         mesh.vertices = vertices_p;
-        //mesh.normals = normals_p;
+        mesh.normals = normals_p;
         mesh.triangles = tris;
 
         GameObject go = new GameObject("test_topo");
@@ -79,7 +79,7 @@ public class LoadMesh : MonoBehaviour
 
         go.transform.parent = target.transform;
         go.transform.localScale *= 10;
-         
+        
         Debug.Log($"verticles {vertices.Length} {norms.Length}  {tris.Length}");
         // foreach (var vertex in vertices)
         // {

@@ -1,0 +1,273 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<title>Compte_rendu</title>
+
+<link rel="stylesheet" href="//meithal.github.io/main.min.css">
+
+    </head>
+
+    <body>
+        <header>
+
+        </header>
+        <main>
+    
+            
+ <h2 id="ivo-1-nov">Ivo 1 nov</h2>
+<p>Ca ne sert a rien de declarer une cle de map en tant que
+<code>const</code> <a href="https://stackoverflow.com/questions/50593012/why-does-stdunordered-map-not-work-with-const-stdstring-key">https://stackoverflow.com/questions/50593012/why-does-stdunordered-map-not-work-with-const-stdstring-key</a></p>
+<p>Creer une interface revient a creer une &ldquo;pure virtual&rdquo;
+methode et les classes qui en heritent comme final.</p>
+<p>Penser a deployer sur github pages <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">https://gohugo.io/hosting-and-deployment/hosting-on-github/</a></p>
+<p>Il est utile de mettre un texte dans le destructeur pour
+detecter les copies couteuses et les duplications dobjets s
+dues a un oubli de reference.</p>
+<h2 id="11-decembre">11 decembre</h2>
+<p>Crée un projet sur Cmake afin de tout automatiser. Cela
+fonctionne toujours, le lib est copiée dans unity et s&rsquo;exécute.</p>
+<p>Ajouté un use case avec criteres d&rsquo;acceptabilité sur le taiga.</p>
+<h3 id="bloqueurs">Bloqueurs</h3>
+<p>On arrive pas a faire dialoguer XCode avec CmakeLists.txt
+quand on ajoute des fichiers dans XCode a un projet ceux
+ci ne sont pas ajoutés dans le cmakelists. Ajouter un fichier
+doit alors se faire manuellement, mais il ne seront pas rangés
+dans les répertoires &ldquo;Sources&rdquo; et &ldquo;Headers&rdquo;. On repasse donc
+sur Clion.</p>
+<p>Avec le build system de xcode, l&rsquo;executable de test final n&rsquo;est
+pas dans le fichier auquel on s&rsquo;attend et les tests n&rsquo;arrivent
+pas a trouver les bons fichiers d&rsquo;asset : il faudrait
+mettre une commande de build qui le fasse avec une generator expression.</p>
+<p>Bugs Unity dee composant Camera non trouvé et lié au terrain, peut être
+lié qu&rsquo;on est passé à une nouvelle version d&rsquo;unity.</p>
+<h2 id="lundi-11-decembre-semaine-cours">lundi 11 decembre (semaine cours)</h2>
+<p>Ecrit un document de game design decrivant les differents
+gameplays contenus dans le jeu, au vu du cours de game
+design de la matinée.</p>
+<h2 id="12-decembre">12 decembre</h2>
+<p>Deployement de ce projet hugo reussi.</p>
+<p>Resolu le prebleme déxecution de test
+backend venant
+du fait que le backend est devenu un sous
+module.</p>
+<p>Reussi a mettre en place un workflow visual
+studio code, probablement plus leger que
+d&rsquo;avoir rider et clion ouverts.</p>
+<p>Resolu le bug de script de camera attaché par
+erreur au game object Terrain.</p>
+<h3 id="bloqueurs-1">Bloqueurs</h3>
+<p>Le sass de pico ne build pas.</p>
+<h2 id="jeudi-21-decembre">jeudi 21 decembre</h2>
+<p>On a voulu que le repo soit le seul objet dans le code
+a posseder des pointeurs sur sa structure interne, du coup
+quand on y ajoute un objet on ne prend que des r-value
+refences</p>
+<p>Du coup on a essayé de faire</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;&amp;</span>name, T <span style="color:#f92672">&amp;&amp;</span> object) {...code}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;&amp;</span>name, T <span style="color:#f92672">&amp;&amp;</span> object) <span style="color:#f92672">=</span> delete;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;&amp;</span>name, T <span style="color:#f92672">&amp;&amp;</span> object) <span style="color:#f92672">=</span> delete;
+</span></span></code></pre></div><p>Mais a priori c&rsquo;est pas nécessaire de delete explicitement.</p>
+<p>En changeant juste la fonction pour n&rsquo;accepter que des  &amp;&amp;
+on a ce qu&rsquo;on veut</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> Foo {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>string name;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">~</span><span style="color:#a6e22e">Foo</span>() {
+</span></span><span style="display:flex;"><span>            std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;destroy foo&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    } <span style="color:#a6e22e">a_jeter</span>(<span style="color:#e6db74">&#34;non&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> repo <span style="color:#f92672">=</span> Swarmies<span style="color:#f92672">::</span>TRepository<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#f92672">&amp;</span>f <span style="color:#f92672">=</span> repo.<span style="color:#a6e22e">add</span>(
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;toto&#34;</span>, Foo{<span style="color:#e6db74">&#34;toto&#34;</span>} <span style="color:#75715e">// &lt; r-value, ok, ce qu&#39;on veut
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            );
+</span></span><span style="display:flex;"><span>    repo.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;non&#34;</span>, a_jeter); <span style="color:#75715e">// &lt; cette ligne la ne marche plus 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// car c&#39;est une l-value, c&#39;est ce qu&#39;on veut.
+</span></span></span></code></pre></div><p>On est obligé d&rsquo;utiliser le constructeur par aggregat,
+car Foo(&ldquo;toto&rdquo;) genere une erreur</p>
+<pre tabindex="0"><code>error: no matching conversion for functional-style cast from &#39;const char[5]&#39; to &#39;Foo&#39;
+</code></pre><p>Pour lui Foo(&ldquo;toto&rdquo;) est un &ldquo;functional-style cast&rdquo; ?
+cf. <a href="https://en.cppreference.com/w/cpp/language/explicit_cast">https://en.cppreference.com/w/cpp/language/explicit_cast</a>
+Dans notre cas precis a un seul argument, c&rsquo;est equivalent
+a un cast de type C.</p>
+<p>Selon cette doc, une alternative serait d&rsquo;écrire
+<code>Foo({&quot;toto&quot;})</code> ce qui est plus verbeux que la
+forme qu&rsquo;on a.</p>
+<p>Ensuite dans notre methode <code>add</code> de notre <code>TRepository</code>
+on veut retourner une ref constante, et on ne peut
+plus écrire <code>map[name] = object</code> car l&rsquo;operateur
+<code>[]</code> de unordered map a l&rsquo;effet de bord de creer
+une instance de l&rsquo;objet si il ne la trouve pas
+a l&rsquo;adresse, specifiée, en apellant le constructeur
+par copie de l&rsquo;objet. En déclarant un tel
+constructeur, on ne peut plus &ldquo;aggregate initialiser&rdquo;
+notre objet (<code>Foo{&quot;toto&quot;}</code>) a moins d&rsquo;écrire un
+construteur pour. C&rsquo;est assez fastidieux.</p>
+<p>La solution est d&rsquo;écrire
+<code>map.emplace(name, std::move(object));</code> quand on
+veut insérer, et <code>map.at(name)</code> quand on veut
+retourner, ce qui épargne toute construction
+par surprise.</p>
+<h3 id="bloqueur">Bloqueur</h3>
+<p>C&rsquo;est bizarre que le destructeur de l&rsquo;objet temporaire
+que l&rsquo;on move dans notre repo soit appellé
+avant que l&rsquo;on teste l&rsquo;objet en question, avant le 1er assert,
+en tout cas douteux.</p>
+<p>En declarant nous meme un constructeur par dep pour mitiger
+ca <code>Foo(Foo&amp;&amp;other): name(other.name) {}</code>, ca enleve le
+constructeur par agregat <code>Foo{&quot;toto&quot;}</code>.</p>
+<p>Meme en ajoutant un tel constructeur, ca n&rsquo;enleve pas
+le souci de l&rsquo;appel de destructeur, l&rsquo;avantage de déclarer
+un constructeur c&rsquo;est que ca interdit la syntaxe</p>
+<p><code>auto foo2= repo.get(&quot;toto&quot;);</code>
+et force le client a ecrire
+<code>auto&amp; foo2= repo.get(&quot;toto&quot;);</code></p>
+<p>car ca supprime le constructeur par copie implicite.</p>
+<h2 id="vendredi-22-decembre">Vendredi 22 decembre</h2>
+<p>On a ecrit un document decrivant l&rsquo;architecture du game state
+du jeu. On a aussi modifié notre repo et ajouté un test.</p>
+<h2 id="jeudi-28-decembre">Jeudi 28 decembre</h2>
+<p>Difficultés: creeer un ordonanceur qui contienne tous les repository :
+chaque repostory est de type template donc on ne peut pas juste
+declarer <code>std::array&lt;TRepository&gt;</code>, du coup un tableau de quoi ? D&rsquo;une
+classe de base virtuelle?</p>
+<p>Typiquement <code>std::array&lt;TRepository&lt;Monster|Weapon&gt;&gt;</code></p>
+<p>Sur discord on m&rsquo;a suggéré une classe de base virtuelle, un std::tuple,
+des pointeurs sur de tels types.</p>
+<p>Ca me donne l&rsquo;impression qu&rsquo;on ne devrait avoir qu&rsquo;un repository
+unique de &ldquo;GameObjects&rdquo; et tenir un inventaire séparé de pointeurs
+sur des meshes, textures, etc. à l&rsquo;intérieur de ce repo.</p>
+<p>Réorganisé l&rsquo;arborescence de code de sorte à avoir le code framework
+et le code spécifique à Swarmies séparé.</p>
+<p>Ai du changer le cmakelist pour copier les assets car ce n&rsquo;etait
+pas implémenté assez solidement.</p>
+<p>Separé tags et relations, laissant l&rsquo;ordonnanceur se charger
+de faire le liant.</p>
+<h2 id="vendredi-29">Vendredi 29</h2>
+<p>Progrès dans l&rsquo;ordonnanceur, abandonne idée d&rsquo;avoir un
+ordonnanceur <code>constexpr</code> avec instantiation directe.
+Amélioration usabilité XCode en categorisant
+fichiers source selon les dossiers où ils sont.</p>
+<h2 id="dimanche-31">Dimanche 31</h2>
+<p>Pas mal de reorganisations.</p>
+<h2 id="mardi-2">Mardi 2</h2>
+<p>Trouvé comment debuger code natif depuis rider.
+<a href="https://forum.unity.com/threads/how-to-debug-a-native-c-plugin.428681/">https://forum.unity.com/threads/how-to-debug-a-native-c-plugin.428681/</a></p>
+<p>On ne peut <code>push_back</code> un vecteur de C arrays.
+Ils n&rsquo;acceptent la copie, donc wrap dans une
+struct pour que ca marche, sans avoir a faire
+a std::array et l&rsquo;interop C/C#.</p>
+<p>Bien avancé dans load de mesh.</p>
+<h2 id="mercredi-3-janvier-2024">Mercredi 3 janvier 2024</h2>
+<p>Quelques soucis pour charger les modeles.obj par le plugin
+natif pendant le runtime. Je ne sais pas où se situe la
+racine a partir de laquelle ouvrir un fichier.</p>
+<p>Piste : <a href="https://forum.unity.com/threads/plugins-and-resources-inside-package.730328/">https://forum.unity.com/threads/plugins-and-resources-inside-package.730328/</a></p>
+<p>Du coup on utilise le composant filesystem de c++17 pour prober l&rsquo;environnement.</p>
+<p>Ca me fait réaliser le problème d&rsquo;un plugion natif : il a accès à tout
+l&rsquo;environnement (comme tout autre jeu c++), alors qu&rsquo;un jeu unity pourrait
+être sandboxé et plus facilement distribuable.</p>
+<p>A implementé une fonction de comput de vertices pour pouvoir
+allouer un tableau de taille fixe dans c sharp.</p>
+<h2 id="jeudi-4-janvier">Jeudi 4 janvier</h2>
+<p>A etabli une fonction qui cree le tableau de vertices a partir
+de la taille qu&rsquo;on connait.</p>
+<p>Reste a vraiment y mettre des vertices. Le probleme c&rsquo;est
+que le C# interop ne fonctionne qu&rsquo;avec du code C, donc
+on a du adapter notre vecteur du coté C++ de ne pas
+utiliser de std::array.</p>
+<h2 id="vendredi-5-janvier">Vendredi 5 janvier</h2>
+<p>Definit un nom au mesh.
+Soiree: etudié l&rsquo;interop managed/unmanaged de csharp.
+<a href="https://learn.microsoft.com/en-us/dotnet/framework/interop/consuming-unmanaged-dll-functions">https://learn.microsoft.com/en-us/dotnet/framework/interop/consuming-unmanaged-dll-functions</a>
+<a href="https://learn.microsoft.com/en-us/dotnet/framework/interop/passing-structures">https://learn.microsoft.com/en-us/dotnet/framework/interop/passing-structures</a></p>
+<h2 id="samedi-6">Samedi 6</h2>
+<p>Suivi cours linkedin learning, a decouvert Fsharp pour manipuler megadonnee
+Trouvé sur le site cmake <a href="https://www.kitware.com/create-dlls-on-windows-without-declspec-using-new-cmake-export-all-feature/">https://www.kitware.com/create-dlls-on-windows-without-declspec-using-new-cmake-export-all-feature/</a>
+le projet root qui ravaille sur le giga et l&rsquo;exadonnee <a href="https://root.cern.ch//">https://root.cern.ch//</a></p>
+<h2 id="dimanche-7">Dimanche 7</h2>
+<p>Surtout passé du temps à étudier F#, l&rsquo;ecosystème microsoft et des videos youtube
+(casey muratori) plutot occupantes.</p>
+<h2 id="mardi-9">Mardi 9</h2>
+<p>Article interessant sur l&rsquo;interop
+<a href="https://learn.microsoft.com/en-us/dotnet/standard/native-interop/best-practices">https://learn.microsoft.com/en-us/dotnet/standard/native-interop/best-practices</a></p>
+<h2 id="mercredi-10">Mercredi 10</h2>
+<p>Mis la glue swarmies dans le projet swarmies, de sorte la glu
+puisse utiliser des choses specifiques a swarmies.</p>
+<h2 id="jeudi-11">Jeudi 11</h2>
+<p>Reussi a lier des donnees de vertex entre back c++ et le
+code unity</p>
+<h2 id="vendredi">Vendredi</h2>
+<p>Lu le scripting api page pour savoir comment creer un mesh dans
+unity. Reste a charger triangles et normales il semblerait.
+Il n&rsquo;y a pas de moyen simple dans unity de passer en mode
+wireframe sans un shader.</p>
+<h2 id="dimanche">Dimanche</h2>
+<p>Trouvé <a href="http://web.cse.ohio-state.edu/~shen.94/581/Site/Lab3_files/Labhelp_Obj_parser.htm">http://web.cse.ohio-state.edu/~shen.94/581/Site/Lab3_files/Labhelp_Obj_parser.htm</a>
+Continue le parseur obj pour l&rsquo;afficher en jeu.</p>
+<h2 id="samedi-20-janvier">Samedi 20 janvier</h2>
+<p>cree un iterateur qui sort les indices des vertexes de nos face
+depuis notre structure de faces. Appris que dans l&rsquo;iterateur
+end doit retourner l&rsquo;indice un cran apres la fin.</p>
+<p>On ne peut pas iterer a travers les vertices d&rsquo;un mesh
+et les changer un par un, il faut les charger en un seul
+tenant. Il faut aussi apeller Clear() avant de set les indices.
+Par exemple ceci ne fonctionne pas</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> vertices.Length <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    mesh.vertices[i] <span style="color:#f92672">=</span> new <span style="color:#a6e22e">Vector3</span>(vertices[i <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0</span>], vertices[i <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>], vertices[i <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>mais cela fonctionne</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>var vertices_p <span style="color:#f92672">=</span> new Vector3[vc];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> vertices.Length <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    vertices_p[i] <span style="color:#f92672">=</span> new <span style="color:#a6e22e">Vector3</span>(vertices[i <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0</span>], vertices[i <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>], vertices[i <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>mesh.<span style="color:#a6e22e">Clear</span>();
+</span></span><span style="display:flex;"><span>mesh.vertices <span style="color:#f92672">=</span> vertices_p;
+</span></span></code></pre></div><p>Il faut aussi set les indices d&rsquo;abord, puis les triangles, chacun
+en un seul tenant pour que le moteur vérifie la cohérence
+des points donnés.</p>
+<p><img src="/images/default_material.png" alt="Mesh sans les normales"></p>
+<p>Pour les normales unity s&rsquo;attend qu&rsquo;à chaque vertex soit associé
+une normale car c&rsquo;est ainsi que les cartes graphiques fonctionnent</p>
+<p><a href="https://forum.unity.com/threads/why-are-normals-saved-on-a-per-vertex-basis.742184/#:~:text=To%20do%20triangle%20normal%20interpolation,and%20a%20lot%20more%20math">https://forum.unity.com/threads/why-are-normals-saved-on-a-per-vertex-basis.742184/#:~:text=To%20do%20triangle%20normal%20interpolation,and%20a%20lot%20more%20math</a>.</p>
+<p>Or le format <code>.obj</code> compresse les normales en un seul tableau,
+c&rsquo;est à nous de reproduire les vraies vertices à partir des
+couplet cooordonées/normales fournies par le format .obj.</p>
+<p>Cela est expliqué ici</p>
+<p><a href="https://blender.stackexchange.com/questions/63348/export-vertex-normals-into-obj-file">https://blender.stackexchange.com/questions/63348/export-vertex-normals-into-obj-file</a></p>
+<p>Quand on exporte il faut aussi demander à l&rsquo;exporteur de trianguler
+nos mesh, et toujours travailler en quans (beaucoup plus simple de
+faire des loop cuts ainsi et beaucoup plus maniables).</p>
+<p>Pour les collisions, le plus simple serait d&rsquo;avoir un
+mesh de géométrie et un mesh de collision dans notre
+.obj. On pourrait utiliser une convention de nommage
+pour distinguer les deux au sein du fichier.</p>
+<p>L&rsquo;interet de <code>Vertex{1, 2}</code> est que si on a un objet
+qui s&rsquo;initialise avec plus d&rsquo;un paramètre tels que</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> Vertex {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> coordinates_ref;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> normal_ref;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>On doit lui écrire un constructeur si on l&rsquo;initialise
+comme <code>Vertex(a[i][0], a[i][2])</code>. Alors qu&rsquo;en
+l&rsquo;initialisant <code>Vertex{a[i][0], a[i][2]}</code> on n&rsquo;a
+pas besoin de lui écrire un constructeur.</p>
+<p>On a reussi a charger correctement un mesh en
+creant un map (ordonné) de couplets vertice/normal</p>
+<p>Notre iterateur de triangle renvoie une reference
+a cette map a partir du hash qu&rsquo;o obtient a partir
+du couplet.</p>
+<p><img src="/images/with_normals.png" alt="Mesh avec les normales"></p>
+<p>Reste a comprendre pourquoi l&rsquo;objet
+est si petit par rapport a l&rsquo;asset
+importé via <code>.fbx</code>.</p>
+
+
+        </main>
+        <footer>
+        </footer>
+    </body>
+</html>
