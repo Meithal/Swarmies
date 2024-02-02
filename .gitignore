@@ -5,3 +5,4 @@ BUILD
 _build*
 cmake-build-*
 *.dylib
+ThirdParty/_BUILD
